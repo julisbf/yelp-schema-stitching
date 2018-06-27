@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/julisbf/yelp-schema-stitching.git"
+    "url": "https://github.com/julisbf/yelp-schema-stitching.git"
   },
   "keywords": [
     "graphql",
