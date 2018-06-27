@@ -3,12 +3,14 @@ require('dotenv').config();
 
 const YELP_API_KEY = process.env.ACCESS_TOKEN
 
+
 function query(location, term, limit) {
+  //console.log('Yelp.js', query)
   let QUERY = `
     {
-      search(term: '${term}',
-        location: '${location}',
-        limit: '${limit}') {
+      search(term: "${term}",
+        location: "${location}",
+        limit: ${limit}) {
           business{
             ...bizInfo
           }
