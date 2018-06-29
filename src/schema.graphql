@@ -1,0 +1,13 @@
+# import User from "./generated/prisma.graphql"
+
+type Business {
+  id: ID!
+  yelpId: String
+  name: String
+  price: String
+  hearted: [User!]!
+}
+
+type Query {
+  search(term: String!, location: String!, limit: Int): Business
+}

@@ -1,0 +1,20 @@
+projects:
+  app:
+    schemaPath: src/schema.graphql
+    extensions:
+      endpoints:
+        default: http://localhost:${env:PORT}
+  ylp:
+    schemaPath: src/generated/yelp.graphql
+    extensions:
+      endpoints:
+        default:
+          method: 'POST'
+          url: https://api.yelp.com/v3/graphql
+          headers:
+            Authorization: Bearer ${env:ACCESS_TOKEN}
+            Content-Type: application/graphql
+  prisma:
+    schemaPath: src/generated/prisma.graphql
+    extensions:
+      prisma: prisma/prisma.yml

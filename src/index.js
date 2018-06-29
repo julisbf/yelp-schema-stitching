@@ -1,34 +1,50 @@
-const asyncHandler = require('express-async-handler')
-const bodyParser = require('body-parser');
-const express = require('express');
-const qs = require('querystringify');
+const YelpBinding = require('./YelpBindings')
+const ylpBinding = new YelpBinding()
+const {
+  Prisma
+} = require('prisma-binding')
+const {
+  GraphQLServer
+} = require('graphql-yoga')
 
-const yelp = require('./api/yelp')
+const resolvers = {
+  Query: {
+    /* user: (parent, args, context, info) =>
+      context.db.query.user({
+        where: {
+          id: args.id
+        }
+      }, info), */
+    search: async (parent, args, context, info) => {
+      return context.ylp.query.search({
+        term: args.term,
+        location: args.location,
+        limit: args.limit
+      })
+    }
+  }
+}
 
-const PORT = process.env.PORT || 8080;
-const HOST = process.env.IP || '0.0.0.0';
-
-const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
-//Yelp API
-app.get(
-  '/api/:query',
-  asyncHandler(async (req, res) => {
-    const query = qs.parse(req.params.query);
-
-    const location = query.location;
-    const term = query.term;
-    const limit = query.limit || 5;
-    let yelpData = await yelp.query(location, term, limit);
-
-    res.send(yelpData.data.search.business);
-  })
-)
-
-app.listen(PORT, HOST, () => {
-  console.log(`Running on http://${HOST}:${PORT}`)
+const server = new GraphQLServer({
+  typeDefs: './src/schema.graphql',
+  resolvers,
+  resolverValidationOptions: {
+    requireResolversForResolveType: false
+  },
+  context: req => ({
+    ...req,
+    db: new Prisma({
+      typeDefs: './src/generated/prisma.graphql',
+      endpoint: process.env.PRISMA_ENDPOINT,
+    }),
+    ylp: new YelpBinding(),
+  }),
 })
+
+const options = {
+  port: process.env.PORT || 8080
+}
+
+server.start(options, ({
+  port
+}) => console.log(`Server is running on http://localhost:${port}`))
