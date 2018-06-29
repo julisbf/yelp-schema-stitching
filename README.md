@@ -7,8 +7,8 @@ This repository contains a GraphQL API that is composed of two GraphQL APIs (fro
 ### 1. Clone the repo & install dependencies
 
 ```bash
-git clone git@github.com:nikolasburk/prisma-contentful-schema-stitching.git
-cd prisma-contentful-schema-stitching
+git clone https://github.com/julisbf/yelp-schema-stitching.git
+cd yelp-schema-stitching
 npm install
 ```
 
