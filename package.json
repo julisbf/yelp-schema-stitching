@@ -1,7 +1,7 @@
 {
-  "name": "yelp-graphql",
+  "name": "yelp-schema-stitching",
   "version": "1.0.0",
-  "description": "Testing Yelp GraphQL Api",
+  "description": "Testing Yelp GraphQL Api stitching with Prisma",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
