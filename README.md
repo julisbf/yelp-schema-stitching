@@ -9,7 +9,7 @@ This repository contains a GraphQL API that is composed of two GraphQL APIs (fro
 ```bash
 git clone git@github.com:nikolasburk/prisma-contentful-schema-stitching.git
 cd prisma-contentful-schema-stitching
-yarn install
+npm install
 ```
 
 ### 2. Create your Prisma account
