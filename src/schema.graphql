@@ -1,13 +1,68 @@
-# import User from "./generated/prisma.graphql"
-
-type Business {
-  id: ID!
-  yelpId: String
-  name: String
-  price: String
-  hearted: [User!]!
-}
+# import User, Business, Businesses, Location, Coordinates, Categories, Loving, Watching from "./generated/prisma.graphql"
 
 type Query {
-  search(term: String!, location: String!, limit: Int): Business
+  me: User
+  search(term: String!, location: String!, limit: Int = 5): Businesses
+  business(id: String!): Business!
+  userLovedPlaces(skip: Int, first: Int): UserLovedPlaces!
+  userWatchedPlaces(skip: Int, first: Int): UserWatchedPlaces!
+}
+
+type Mutation {
+  signup(email: String!, password: String!, name: String!): AuthPayload!
+  login(email: String!, password: String!): AuthPayload!
+  createPlace(
+    yelpId: String!
+    name: String!
+    price: String
+    photos: String
+    address: String
+    city: String
+    state: String
+    country: String
+    longitude: Float
+    latitude: Float
+    cat_title: String
+  ): Business!
+  updatePlace(
+    placeId: ID!
+    yelpId: String
+    name: String
+    price: String
+    photos: String
+    address: String
+    city: String
+    state: String
+    country: String
+    longitude: Float
+    latitude: Float
+    cat_title: String
+  ): Business!
+  addLovePlace(placeId: ID!): Loving!
+  addWatchPlace(placeId: ID!): Watching!
+  removeLovePlace(id: ID!): Loving
+  removeWatchPlace(id: ID!): Watching
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  loving: [Loving!]!
+  watching: [Watching!]!
+}
+
+type UserLovedPlaces {
+  loving: [Loving!]!
+  count: Int!
+}
+
+type UserWatchedPlaces {
+  watching: [Watching!]!
+  count: Int!
 }
