@@ -2,4 +2,6 @@ endpoint: ${env:PRISMA_ENDPOINT}
 datamodel: datamodel.graphql
 hooks:
   post-deploy:
-    - graphql get-schema -p prisma
+    - echo "Deployment finished"
+    - graphql get-schema --project prisma
+    - graphql prepare
