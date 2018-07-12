@@ -85,37 +85,6 @@ const place = {
       },
       info
     )
-  },
-  /* TODO
-   * check removeLovePlace
-   * Implement addWatchPlace and removeWatchPlace
-   */
-  async removeLovePlace(parent, args, context, info) {
-    const userId = getUserId(context)
-    const isLoved = await context.db.exists.Loving({
-      id: {
-        id: args.id
-      },
-      lover: {
-        id: userId
-      }
-    })
-
-    if (!isLoved) {
-      throw new Error(`Doesn't exist love id: ${args.id}`)
-    }
-    return context.db.mutation.deleteLoving({
-      where: {
-        id: args.id
-      },
-      info
-    })
-  },
-  async addWatchPlace(parent, {
-    placeId
-  }, context, info) {
-    const userId = getUserId(context)
-    console.log('watch', userId)
   }
 }
 
