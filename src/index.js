@@ -1,29 +1,14 @@
-const YelpBinding = require('./YelpBindings')
-const ylpBinding = new YelpBinding()
+const YelpBinding = require('./YelpBinding')
 const {
   Prisma
 } = require('prisma-binding')
 const {
   GraphQLServer
 } = require('graphql-yoga')
-
-const resolvers = {
-  Query: {
-    /* user: (parent, args, context, info) =>
-      context.db.query.user({
-        where: {
-          id: args.id
-        }
-      }, info), */
-    search: async (parent, args, context, info) => {
-      return context.ylp.query.search({
-        term: args.term,
-        location: args.location,
-        limit: args.limit
-      })
-    }
-  }
-}
+const {
+  getUserId
+} = require('./utils')
+const resolvers = require('./resolvers')
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
