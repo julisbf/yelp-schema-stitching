@@ -1,4 +1,58 @@
 type User {
   id: ID! @unique
-  username: String!
+  email: String! @unique
+  password: String!
+  name: String!
+  watching: [Watching!]!
+  loving: [Loving!]!
+}
+
+type Business {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  yelpId: String!
+  price: String
+  location: Location
+  coordinates: Coordinates
+  categories: [Categories!]!
+  photos: String
+  watchers: [Watching!]!
+  lovers: [Loving!]!
+  isLoved: Boolean! @default(value: "false")
+  isWatched: Boolean! @default(value: "false")
+}
+
+type Location {
+  address1: String!
+  city: String!
+  state: String
+  country: String!
+}
+
+type Coordinates {
+  latitude: Float
+  longitude: Float
+}
+
+type Categories {
+  title: String
+}
+
+type Businesses {
+  business: [Business!]!
+  total: Int
+}
+
+type Loving {
+  id: ID! @unique
+  business: Business!
+  lover: User!
+}
+
+type Watching {
+  id: ID! @unique
+  business: Business!
+  watcher: User!
 }
