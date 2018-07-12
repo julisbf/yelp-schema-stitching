@@ -224,8 +224,8 @@ type Query {
     # we search everything. The term keyword also accepts business names such as "Starbucks".
     term: String
 
-    # Required. Specifies the combination of "address, neighborhood, city, state
-    # or zip, optional country" to be used when searching for businesses.
+    # Required. Specifies the combination of address, neighborhood, city, state
+    # or zip, optional country to be used when searching for businesses.
     location: String
     country: String
 

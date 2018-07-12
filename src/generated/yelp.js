@@ -1,4 +1,4 @@
-const typeDefs = `
+const yelpDefs = `
 type Business {
   id: ID! 
   name: String!
@@ -11,7 +11,7 @@ type Business {
 
 type Businesses {
   total: Int
-  business: [Business]!
+  business: [Business]
 }
 
 type Coordinates {
@@ -36,4 +36,4 @@ type Query {
 }
 `
 
-module.exports = typeDefs
+module.exports = yelpDefs
