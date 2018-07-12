@@ -14,7 +14,7 @@ npm install
 
 ### 2. Create your Prisma account
 
-Go to [prisma](http://prisma.io/){:target="\_blank"}
+Go to [prisma](http://prisma.io/)
 
 ### 3. Deploy the Prisma service
 
@@ -45,7 +45,7 @@ Add jsonwebtoken Token \
 
 `PORT = 8080`
 
-> **Note:** You’ll need to create a client, join the beta program, and grab the API key from your [client settings](https://www.yelp.com/developers/v3/manage_app){:target="\_blank"}
+> **Note:** You’ll need to create a client, join the beta program, and grab the API key from your [client settings](https://www.yelp.com/developers/v3/manage_app)
 
 ### 5. Start your server
 
@@ -63,6 +63,6 @@ graphql playground
 
 ### 7. Or install Playground Desktop App
 
-Since the browser has been throwing a CORS error, you should consider to install [GraphQL IDE desktop app](https://github.com/prismagraphql/graphql-playground/releases){:target="\_blank"}
+Since the browser has been throwing a CORS error, you should consider to install [GraphQL IDE desktop app](https://github.com/prismagraphql/graphql-playground/releases)
 
 The playground lets you interact with all three GraphQL APIs that are defined in [`.graphqlconfig.yml`](./.graphqlconfig.yml).
