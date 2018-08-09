@@ -217,7 +217,7 @@ type Query {
     # The Yelp ID for the business you want to load.
     id: String
   ): Business
-  
+
   # Search for businesses on Yelp.
   search(
     # Optional. Search term (e.g. "food", "restaurants"). If term isn't included
@@ -279,3 +279,4 @@ type Query {
     # AREA_TOO_LARGE error may be returned. The max value is 40000 meters (25 miles).
     radius: Float
   ): Businesses
+}
