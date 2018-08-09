@@ -16,12 +16,10 @@ type Business {
   price: String
   location: Location
   coordinates: Coordinates
-  categories: [Categories!]!
+  categories: [Category!]!
   photos: String
   watchers: [Watching!]!
   lovers: [Loving!]!
-  isLoved: Boolean! @default(value: "false")
-  isWatched: Boolean! @default(value: "false")
 }
 
 type Location {
@@ -36,23 +34,18 @@ type Coordinates {
   longitude: Float
 }
 
-type Categories {
+type Category {
   title: String
-}
-
-type Businesses {
-  business: [Business!]!
-  total: Int
 }
 
 type Loving {
   id: ID! @unique
   business: Business!
-  lover: User!
+  user: User!
 }
 
 type Watching {
   id: ID! @unique
   business: Business!
-  watcher: User!
+  user: User!
 }
