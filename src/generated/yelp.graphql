@@ -1,79 +1,105 @@
 type Business {
-  # Name of this business.
+  """
+   Name of this business.
+  """
   name: String
 
-  # Yelp ID of this business.
+  """
+   Yelp ID of this business.
+  """
   id: String
 
   # Whether business has been claimed by a business owner.
-  is_claimed: Boolean
+  # is_claimed: Boolean
 
   # Whether business has been (permanently) closed.
-  is_closed: Boolean
+  # is_closed: Boolean
 
   # URL for business page on Yelp.
-  url: String
+  # url: String
 
   # Phone number of the business.
-  phone: String
+  # phone: String
 
   # Phone number of the business formatted nicely to be displayed to users. The
   # format is the standard phone number format for the business's country.
-  display_phone: String
+  # display_phone: String
 
   # Number of reviews for this business.
-  review_count: Int
+  # review_count: Int
 
-  # A list of category title and alias pairs associated with this business.
+  """
+   A list of category title and alias pairs associated with this business.
+  """
   categories: [Category]
 
   # Rating for this business (value ranges from 1, 1.5, ... 4.5, 5).
-  rating: Float
+  # rating: Float
 
-  # Price level of the business. Value is one of $, $$, $$$ and $$$$ or null if we
-  # don't have price available for the business.
+  """
+   Price level of the business. Value is one of $, $$, $$$ and $$$$ or null if we
+  don't have price available for the business.
+  """
   price: String
 
-  # The location of this business, including address, city, state, zip code and country.
+  """
+   The location of this business, including address, city, state, zip code and country.
+  """
   location: Location
 
-  # The coordinates of this business.
+  """
+   The coordinates of this business.
+  """
   coordinates: Coordinates
 
-  # URLs of up to three photos of the business.
+  """
+   URLs of up to three photos of the business.
+  """
   photos: [String]
 
   # Opening hours of the business.
-  hours: [Hours]
+  #hours: [Hours]
 
   # Review snippets from the business.
-  reviews(limit: Int, offset: Int): [Review]
+  #reviews(limit: Int, offset: Int): [Review]
 
   # Business attributes, if available.
-  attributes: GenericScalar
+  #attributes: GenericScalar
 }
 
 type Businesses {
-  # A list of business Yelp finds based on the search criteria.
+  """
+  A list of business Yelp finds based on the search criteria.
+  """
   business: [Business]
 
-  # Total number of businesses found.
+  """
+   Total number of businesses found.
+  """
   total: Int
 }
 
 type Category {
-  # Title of a category for display purpose.
+  """
+   Title of a category for display purpose.
+  """
   title: String
 
-  # Alias of a category, when searching for business in certain categories, use alias rather than the title.
+  """
+   Alias of a category, when searching for business in certain categories, use alias rather than the title.
+  """
   alias: String
 }
 
 type Coordinates {
-  # The latitude of this business.
+  """
+   The latitude of this business.
+  """
   latitude: Float
 
-  # The longitude of this business.
+  """
+   The longitude of this business.
+  """
   longitude: Float
 }
 
@@ -169,30 +195,38 @@ type Hours {
 }
 
 type Location {
-  # Street address of this business.
+  """
+   Street address of this business.
+  """
   address1: String
 
   # Street address of this business, continued.
-  address2: String
+  # address2: String
 
   # Street address of this business, continued.
-  address3: String
+  # address3: String
 
-  # City of this business.
+  """
+   City of this business.
+  """
   city: String
 
-  # ISO 3166-2 (with a few exceptions) state code of this business.
+  """
+   ISO 3166-2 (with a few exceptions) state code of this business.
+  """
   state: String
 
   # Zip code of this business.
-  zip_code: String
+  # zip_code: String
 
-  # ISO 3166-1 alpha-2 country code of this business.
+  """
+   ISO 3166-1 alpha-2 country code of this business.
+  """
   country: String
 
   # Array of strings that if organized vertically give an address that is in the
   # standard address format for the business's country.
-  formatted_address: String
+  # formatted_address: String
 }
 
 type OpenHours {
@@ -212,16 +246,22 @@ type OpenHours {
 }
 
 type Query {
-  # Load information about a specific business.
+  """
+   Load information about a specific business.
+  """
   business(
-    # The Yelp ID for the business you want to load.
+    """
+     The Yelp ID for the business you want to load.
+    """
     id: String
   ): Business
-  
+
   # Search for businesses on Yelp.
   search(
-    # Optional. Search term (e.g. "food", "restaurants"). If term isn't included
-    # we search everything. The term keyword also accepts business names such as "Starbucks".
+    """
+     Optional. Search term (e.g. "food", "restaurants"). If term isn't included
+    we search everything. The term keyword also accepts business names such as "Starbucks".
+    """
     term: String
 
     # Required. Specifies the combination of address, neighborhood, city, state
@@ -279,3 +319,4 @@ type Query {
     # AREA_TOO_LARGE error may be returned. The max value is 40000 meters (25 miles).
     radius: Float
   ): Businesses
+}
