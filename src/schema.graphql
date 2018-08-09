@@ -1,47 +1,79 @@
-# import User, Business, Businesses, Location, Coordinates, Categories, Loving, Watching from "./generated/prisma.graphql"
-
+# import User, Business, Location, Coordinates, Categories, Loving, Watching from "./generated/prisma.graphql"
+# import Business, Businesses, search from "./generated/yelp.graphql"
 type Query {
+  """
+  Retrieve current user data
+  """
   me: User
-  search(term: String!, location: String!, limit: Int = 5): Businesses
-  business(id: String!): Business!
-  userLovedPlaces(skip: Int, first: Int): UserLovedPlaces!
-  userWatchedPlaces(skip: Int, first: Int): UserWatchedPlaces!
+  """
+  Search a specific business in Resto DB
+  """
+  business(id: String!): Business! #Resto Api
+  """
+  Bring all restaurants saved in Resto DB
+  """
+  businesses: [Business!]! #Resto Api
+  """
+  Total number of restaurant the current user is loving
+  """
+  totalLovingByCurrentUser: LovingConnection
+
+  """
+  Total number of restaurant the current user is watching
+  """
+  totalWatchingByCurrentUser: WatchingConnection
+
+  """
+  Total number of people loving a specific restaurant
+  """
+  totalLovingBusiness(placeId: String!): LovingConnection
+
+  """
+  Total number of people watching a specific restaurant
+  """
+  totalWatchingBusiness(placeId: String!): WatchingConnection
+  """
+  Search businesses using Yelp API
+  """
+  searchFromYelp(
+    term: String!
+    location: String!
+    price: String
+    limit: Int = 5
+  ): Businesses # Yelp Api
+  """
+  Search a specific business using Yelp API
+  """
+  businessFromYelp(id: String!): Business! # Yelp Api
 }
 
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  createPlace(
+  signout: SuccessMessage
+  createBusiness(
     yelpId: String!
     name: String!
     price: String
     photos: String
-    address: String
-    city: String
-    state: String
-    country: String
-    longitude: Float
-    latitude: Float
-    cat_title: String
+    location: LocationCreateOneInput
+    coordinates: CoordinatesCreateOneInput
+    categories: CategoryCreateManyInput
   ): Business!
-  updatePlace(
-    placeId: ID!
+  updateBusiness(
+    id: ID!
     yelpId: String
     name: String
     price: String
     photos: String
-    address: String
-    city: String
-    state: String
-    country: String
-    longitude: Float
-    latitude: Float
-    cat_title: String
+    location: LocationUpdateOneInput
+    coordinates: CoordinatesUpdateOneInput
+    categories: CategoryUpdateManyInput
   ): Business!
-  addLovePlace(placeId: ID!): Loving!
-  addWatchPlace(placeId: ID!): Watching!
-  removeLovePlace(id: ID!): Loving
-  removeWatchPlace(id: ID!): Watching
+  addLoveToBusiness(placeId: ID!): Loving!
+  removeLoveToBusiness(placeId: ID!): Loving!
+  addWatchToBusiness(placeId: ID!): Watching!
+  removeWatchToBusiness(placeId: ID!): Watching!
 }
 
 type AuthPayload {
@@ -57,12 +89,11 @@ type User {
   watching: [Watching!]!
 }
 
-type UserLovedPlaces {
-  loving: [Loving!]!
-  count: Int!
-}
+# type Businesses {
+#   business: [Business!]!
+#   total: Int
+# }
 
-type UserWatchedPlaces {
-  watching: [Watching!]!
-  count: Int!
+type SuccessMessage {
+  message: String
 }
