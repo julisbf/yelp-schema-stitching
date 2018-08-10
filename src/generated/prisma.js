@@ -44,8 +44,8 @@ type Business implements Node {
   name: String!
   yelpId: String!
   price: String
-  location(where: LocationWhereInput): Location
-  coordinates(where: CoordinatesWhereInput): Coordinates
+  location(where: LocationWhereInput): Location!
+  coordinates(where: CoordinatesWhereInput): Coordinates!
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
   photos: String
   watchers(where: WatchingWhereInput, orderBy: WatchingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Watching!]
@@ -72,11 +72,26 @@ input BusinessCreateInput {
   yelpId: String!
   price: String
   photos: String
-  location: LocationCreateOneInput
-  coordinates: CoordinatesCreateOneInput
-  categories: CategoryCreateManyInput
+  location: LocationCreateOneWithoutBusinessInput!
+  coordinates: CoordinatesCreateOneWithoutBusinessInput!
+  categories: CategoryCreateManyWithoutBusinessInput
   watchers: WatchingCreateManyWithoutBusinessInput
   lovers: LovingCreateManyWithoutBusinessInput
+}
+
+input BusinessCreateOneWithoutCategoriesInput {
+  create: BusinessCreateWithoutCategoriesInput
+  connect: BusinessWhereUniqueInput
+}
+
+input BusinessCreateOneWithoutCoordinatesInput {
+  create: BusinessCreateWithoutCoordinatesInput
+  connect: BusinessWhereUniqueInput
+}
+
+input BusinessCreateOneWithoutLocationInput {
+  create: BusinessCreateWithoutLocationInput
+  connect: BusinessWhereUniqueInput
 }
 
 input BusinessCreateOneWithoutLoversInput {
@@ -89,14 +104,47 @@ input BusinessCreateOneWithoutWatchersInput {
   connect: BusinessWhereUniqueInput
 }
 
+input BusinessCreateWithoutCategoriesInput {
+  name: String!
+  yelpId: String!
+  price: String
+  photos: String
+  location: LocationCreateOneWithoutBusinessInput!
+  coordinates: CoordinatesCreateOneWithoutBusinessInput!
+  watchers: WatchingCreateManyWithoutBusinessInput
+  lovers: LovingCreateManyWithoutBusinessInput
+}
+
+input BusinessCreateWithoutCoordinatesInput {
+  name: String!
+  yelpId: String!
+  price: String
+  photos: String
+  location: LocationCreateOneWithoutBusinessInput!
+  categories: CategoryCreateManyWithoutBusinessInput
+  watchers: WatchingCreateManyWithoutBusinessInput
+  lovers: LovingCreateManyWithoutBusinessInput
+}
+
+input BusinessCreateWithoutLocationInput {
+  name: String!
+  yelpId: String!
+  price: String
+  photos: String
+  coordinates: CoordinatesCreateOneWithoutBusinessInput!
+  categories: CategoryCreateManyWithoutBusinessInput
+  watchers: WatchingCreateManyWithoutBusinessInput
+  lovers: LovingCreateManyWithoutBusinessInput
+}
+
 input BusinessCreateWithoutLoversInput {
   name: String!
   yelpId: String!
   price: String
   photos: String
-  location: LocationCreateOneInput
-  coordinates: CoordinatesCreateOneInput
-  categories: CategoryCreateManyInput
+  location: LocationCreateOneWithoutBusinessInput!
+  coordinates: CoordinatesCreateOneWithoutBusinessInput!
+  categories: CategoryCreateManyWithoutBusinessInput
   watchers: WatchingCreateManyWithoutBusinessInput
 }
 
@@ -105,9 +153,9 @@ input BusinessCreateWithoutWatchersInput {
   yelpId: String!
   price: String
   photos: String
-  location: LocationCreateOneInput
-  coordinates: CoordinatesCreateOneInput
-  categories: CategoryCreateManyInput
+  location: LocationCreateOneWithoutBusinessInput!
+  coordinates: CoordinatesCreateOneWithoutBusinessInput!
+  categories: CategoryCreateManyWithoutBusinessInput
   lovers: LovingCreateManyWithoutBusinessInput
 }
 
@@ -196,11 +244,35 @@ input BusinessUpdateInput {
   yelpId: String
   price: String
   photos: String
-  location: LocationUpdateOneInput
-  coordinates: CoordinatesUpdateOneInput
-  categories: CategoryUpdateManyInput
+  location: LocationUpdateOneWithoutBusinessInput
+  coordinates: CoordinatesUpdateOneWithoutBusinessInput
+  categories: CategoryUpdateManyWithoutBusinessInput
   watchers: WatchingUpdateManyWithoutBusinessInput
   lovers: LovingUpdateManyWithoutBusinessInput
+}
+
+input BusinessUpdateOneWithoutCategoriesInput {
+  create: BusinessCreateWithoutCategoriesInput
+  connect: BusinessWhereUniqueInput
+  delete: Boolean
+  update: BusinessUpdateWithoutCategoriesDataInput
+  upsert: BusinessUpsertWithoutCategoriesInput
+}
+
+input BusinessUpdateOneWithoutCoordinatesInput {
+  create: BusinessCreateWithoutCoordinatesInput
+  connect: BusinessWhereUniqueInput
+  delete: Boolean
+  update: BusinessUpdateWithoutCoordinatesDataInput
+  upsert: BusinessUpsertWithoutCoordinatesInput
+}
+
+input BusinessUpdateOneWithoutLocationInput {
+  create: BusinessCreateWithoutLocationInput
+  connect: BusinessWhereUniqueInput
+  delete: Boolean
+  update: BusinessUpdateWithoutLocationDataInput
+  upsert: BusinessUpsertWithoutLocationInput
 }
 
 input BusinessUpdateOneWithoutLoversInput {
@@ -219,14 +291,47 @@ input BusinessUpdateOneWithoutWatchersInput {
   upsert: BusinessUpsertWithoutWatchersInput
 }
 
+input BusinessUpdateWithoutCategoriesDataInput {
+  name: String
+  yelpId: String
+  price: String
+  photos: String
+  location: LocationUpdateOneWithoutBusinessInput
+  coordinates: CoordinatesUpdateOneWithoutBusinessInput
+  watchers: WatchingUpdateManyWithoutBusinessInput
+  lovers: LovingUpdateManyWithoutBusinessInput
+}
+
+input BusinessUpdateWithoutCoordinatesDataInput {
+  name: String
+  yelpId: String
+  price: String
+  photos: String
+  location: LocationUpdateOneWithoutBusinessInput
+  categories: CategoryUpdateManyWithoutBusinessInput
+  watchers: WatchingUpdateManyWithoutBusinessInput
+  lovers: LovingUpdateManyWithoutBusinessInput
+}
+
+input BusinessUpdateWithoutLocationDataInput {
+  name: String
+  yelpId: String
+  price: String
+  photos: String
+  coordinates: CoordinatesUpdateOneWithoutBusinessInput
+  categories: CategoryUpdateManyWithoutBusinessInput
+  watchers: WatchingUpdateManyWithoutBusinessInput
+  lovers: LovingUpdateManyWithoutBusinessInput
+}
+
 input BusinessUpdateWithoutLoversDataInput {
   name: String
   yelpId: String
   price: String
   photos: String
-  location: LocationUpdateOneInput
-  coordinates: CoordinatesUpdateOneInput
-  categories: CategoryUpdateManyInput
+  location: LocationUpdateOneWithoutBusinessInput
+  coordinates: CoordinatesUpdateOneWithoutBusinessInput
+  categories: CategoryUpdateManyWithoutBusinessInput
   watchers: WatchingUpdateManyWithoutBusinessInput
 }
 
@@ -235,10 +340,25 @@ input BusinessUpdateWithoutWatchersDataInput {
   yelpId: String
   price: String
   photos: String
-  location: LocationUpdateOneInput
-  coordinates: CoordinatesUpdateOneInput
-  categories: CategoryUpdateManyInput
+  location: LocationUpdateOneWithoutBusinessInput
+  coordinates: CoordinatesUpdateOneWithoutBusinessInput
+  categories: CategoryUpdateManyWithoutBusinessInput
   lovers: LovingUpdateManyWithoutBusinessInput
+}
+
+input BusinessUpsertWithoutCategoriesInput {
+  update: BusinessUpdateWithoutCategoriesDataInput!
+  create: BusinessCreateWithoutCategoriesInput!
+}
+
+input BusinessUpsertWithoutCoordinatesInput {
+  update: BusinessUpdateWithoutCoordinatesDataInput!
+  create: BusinessCreateWithoutCoordinatesInput!
+}
+
+input BusinessUpsertWithoutLocationInput {
+  update: BusinessUpdateWithoutLocationDataInput!
+  create: BusinessCreateWithoutLocationInput!
 }
 
 input BusinessUpsertWithoutLoversInput {
@@ -604,8 +724,10 @@ input BusinessWhereUniqueInput {
   id: ID
 }
 
-type Category {
+type Category implements Node {
+  id: ID!
   title: String
+  business(where: BusinessWhereInput): Business!
 }
 
 """
@@ -625,10 +747,16 @@ type CategoryConnection {
 
 input CategoryCreateInput {
   title: String
+  business: BusinessCreateOneWithoutCategoriesInput!
 }
 
-input CategoryCreateManyInput {
-  create: [CategoryCreateInput!]
+input CategoryCreateManyWithoutBusinessInput {
+  create: [CategoryCreateWithoutBusinessInput!]
+  connect: [CategoryWhereUniqueInput!]
+}
+
+input CategoryCreateWithoutBusinessInput {
+  title: String
 }
 
 """
@@ -646,10 +774,10 @@ type CategoryEdge {
 }
 
 enum CategoryOrderByInput {
-  title_ASC
-  title_DESC
   id_ASC
   id_DESC
+  title_ASC
+  title_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -657,6 +785,7 @@ enum CategoryOrderByInput {
 }
 
 type CategoryPreviousValues {
+  id: ID!
   title: String
 }
 
@@ -701,10 +830,31 @@ input CategorySubscriptionWhereInput {
 
 input CategoryUpdateInput {
   title: String
+  business: BusinessUpdateOneWithoutCategoriesInput
 }
 
-input CategoryUpdateManyInput {
-  create: [CategoryCreateInput!]
+input CategoryUpdateManyWithoutBusinessInput {
+  create: [CategoryCreateWithoutBusinessInput!]
+  connect: [CategoryWhereUniqueInput!]
+  disconnect: [CategoryWhereUniqueInput!]
+  delete: [CategoryWhereUniqueInput!]
+  update: [CategoryUpdateWithWhereUniqueWithoutBusinessInput!]
+  upsert: [CategoryUpsertWithWhereUniqueWithoutBusinessInput!]
+}
+
+input CategoryUpdateWithoutBusinessDataInput {
+  title: String
+}
+
+input CategoryUpdateWithWhereUniqueWithoutBusinessInput {
+  where: CategoryWhereUniqueInput!
+  data: CategoryUpdateWithoutBusinessDataInput!
+}
+
+input CategoryUpsertWithWhereUniqueWithoutBusinessInput {
+  where: CategoryWhereUniqueInput!
+  update: CategoryUpdateWithoutBusinessDataInput!
+  create: CategoryCreateWithoutBusinessInput!
 }
 
 input CategoryWhereInput {
@@ -720,6 +870,59 @@ input CategoryWhereInput {
   Logical NOT on all given filters combined by AND.
   """
   NOT: [CategoryWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
   title: String
   """
   All values that are not equal to given value.
@@ -773,11 +976,18 @@ input CategoryWhereInput {
   All values not ending with the given string.
   """
   title_not_ends_with: String
+  business: BusinessWhereInput
 }
 
-type Coordinates {
+input CategoryWhereUniqueInput {
+  id: ID
+}
+
+type Coordinates implements Node {
+  id: ID!
   latitude: Float
   longitude: Float
+  business(where: BusinessWhereInput): Business!
 }
 
 """
@@ -798,10 +1008,17 @@ type CoordinatesConnection {
 input CoordinatesCreateInput {
   latitude: Float
   longitude: Float
+  business: BusinessCreateOneWithoutCoordinatesInput!
 }
 
-input CoordinatesCreateOneInput {
-  create: CoordinatesCreateInput
+input CoordinatesCreateOneWithoutBusinessInput {
+  create: CoordinatesCreateWithoutBusinessInput
+  connect: CoordinatesWhereUniqueInput
+}
+
+input CoordinatesCreateWithoutBusinessInput {
+  latitude: Float
+  longitude: Float
 }
 
 """
@@ -819,12 +1036,12 @@ type CoordinatesEdge {
 }
 
 enum CoordinatesOrderByInput {
+  id_ASC
+  id_DESC
   latitude_ASC
   latitude_DESC
   longitude_ASC
   longitude_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -832,6 +1049,7 @@ enum CoordinatesOrderByInput {
 }
 
 type CoordinatesPreviousValues {
+  id: ID!
   latitude: Float
   longitude: Float
 }
@@ -875,27 +1093,28 @@ input CoordinatesSubscriptionWhereInput {
   node: CoordinatesWhereInput
 }
 
-input CoordinatesUpdateDataInput {
-  latitude: Float
-  longitude: Float
-}
-
 input CoordinatesUpdateInput {
   latitude: Float
   longitude: Float
+  business: BusinessUpdateOneWithoutCoordinatesInput
 }
 
-input CoordinatesUpdateOneInput {
-  create: CoordinatesCreateInput
-  disconnect: Boolean
+input CoordinatesUpdateOneWithoutBusinessInput {
+  create: CoordinatesCreateWithoutBusinessInput
+  connect: CoordinatesWhereUniqueInput
   delete: Boolean
-  update: CoordinatesUpdateDataInput
-  upsert: CoordinatesUpsertNestedInput
+  update: CoordinatesUpdateWithoutBusinessDataInput
+  upsert: CoordinatesUpsertWithoutBusinessInput
 }
 
-input CoordinatesUpsertNestedInput {
-  update: CoordinatesUpdateDataInput!
-  create: CoordinatesCreateInput!
+input CoordinatesUpdateWithoutBusinessDataInput {
+  latitude: Float
+  longitude: Float
+}
+
+input CoordinatesUpsertWithoutBusinessInput {
+  update: CoordinatesUpdateWithoutBusinessDataInput!
+  create: CoordinatesCreateWithoutBusinessInput!
 }
 
 input CoordinatesWhereInput {
@@ -911,6 +1130,59 @@ input CoordinatesWhereInput {
   Logical NOT on all given filters combined by AND.
   """
   NOT: [CoordinatesWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
   latitude: Float
   """
   All values that are not equal to given value.
@@ -969,15 +1241,22 @@ input CoordinatesWhereInput {
   All values greater than or equal the given value.
   """
   longitude_gte: Float
+  business: BusinessWhereInput
+}
+
+input CoordinatesWhereUniqueInput {
+  id: ID
 }
 
 scalar DateTime
 
-type Location {
+type Location implements Node {
+  id: ID!
   address1: String!
   city: String!
   state: String
   country: String!
+  business(where: BusinessWhereInput): Business!
 }
 
 """
@@ -1000,10 +1279,19 @@ input LocationCreateInput {
   city: String!
   state: String
   country: String!
+  business: BusinessCreateOneWithoutLocationInput!
 }
 
-input LocationCreateOneInput {
-  create: LocationCreateInput
+input LocationCreateOneWithoutBusinessInput {
+  create: LocationCreateWithoutBusinessInput
+  connect: LocationWhereUniqueInput
+}
+
+input LocationCreateWithoutBusinessInput {
+  address1: String!
+  city: String!
+  state: String
+  country: String!
 }
 
 """
@@ -1021,6 +1309,8 @@ type LocationEdge {
 }
 
 enum LocationOrderByInput {
+  id_ASC
+  id_DESC
   address1_ASC
   address1_DESC
   city_ASC
@@ -1029,8 +1319,6 @@ enum LocationOrderByInput {
   state_DESC
   country_ASC
   country_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1038,6 +1326,7 @@ enum LocationOrderByInput {
 }
 
 type LocationPreviousValues {
+  id: ID!
   address1: String!
   city: String!
   state: String
@@ -1083,31 +1372,32 @@ input LocationSubscriptionWhereInput {
   node: LocationWhereInput
 }
 
-input LocationUpdateDataInput {
-  address1: String
-  city: String
-  state: String
-  country: String
-}
-
 input LocationUpdateInput {
   address1: String
   city: String
   state: String
   country: String
+  business: BusinessUpdateOneWithoutLocationInput
 }
 
-input LocationUpdateOneInput {
-  create: LocationCreateInput
-  disconnect: Boolean
+input LocationUpdateOneWithoutBusinessInput {
+  create: LocationCreateWithoutBusinessInput
+  connect: LocationWhereUniqueInput
   delete: Boolean
-  update: LocationUpdateDataInput
-  upsert: LocationUpsertNestedInput
+  update: LocationUpdateWithoutBusinessDataInput
+  upsert: LocationUpsertWithoutBusinessInput
 }
 
-input LocationUpsertNestedInput {
-  update: LocationUpdateDataInput!
-  create: LocationCreateInput!
+input LocationUpdateWithoutBusinessDataInput {
+  address1: String
+  city: String
+  state: String
+  country: String
+}
+
+input LocationUpsertWithoutBusinessInput {
+  update: LocationUpdateWithoutBusinessDataInput!
+  create: LocationCreateWithoutBusinessInput!
 }
 
 input LocationWhereInput {
@@ -1123,6 +1413,59 @@ input LocationWhereInput {
   Logical NOT on all given filters combined by AND.
   """
   NOT: [LocationWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
   address1: String
   """
   All values that are not equal to given value.
@@ -1335,6 +1678,11 @@ input LocationWhereInput {
   All values not ending with the given string.
   """
   country_not_ends_with: String
+  business: BusinessWhereInput
+}
+
+input LocationWhereUniqueInput {
+  id: ID
 }
 
 """
@@ -1618,6 +1966,11 @@ type PageInfo {
   endCursor: String
 }
 
+enum Role {
+  ADMIN
+  FOODIE
+}
+
 type User implements Node {
   id: ID!
   email: String!
@@ -1625,6 +1978,7 @@ type User implements Node {
   name: String!
   watching(where: WatchingWhereInput, orderBy: WatchingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Watching!]
   loving(where: LovingWhereInput, orderBy: LovingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Loving!]
+  role: Role!
 }
 
 """
@@ -1646,6 +2000,7 @@ input UserCreateInput {
   email: String!
   password: String!
   name: String!
+  role: Role
   watching: WatchingCreateManyWithoutUserInput
   loving: LovingCreateManyWithoutUserInput
 }
@@ -1664,6 +2019,7 @@ input UserCreateWithoutLovingInput {
   email: String!
   password: String!
   name: String!
+  role: Role
   watching: WatchingCreateManyWithoutUserInput
 }
 
@@ -1671,6 +2027,7 @@ input UserCreateWithoutWatchingInput {
   email: String!
   password: String!
   name: String!
+  role: Role
   loving: LovingCreateManyWithoutUserInput
 }
 
@@ -1697,6 +2054,8 @@ enum UserOrderByInput {
   password_DESC
   name_ASC
   name_DESC
+  role_ASC
+  role_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1708,6 +2067,7 @@ type UserPreviousValues {
   email: String!
   password: String!
   name: String!
+  role: Role!
 }
 
 type UserSubscriptionPayload {
@@ -1753,6 +2113,7 @@ input UserUpdateInput {
   email: String
   password: String
   name: String
+  role: Role
   watching: WatchingUpdateManyWithoutUserInput
   loving: LovingUpdateManyWithoutUserInput
 }
@@ -1777,6 +2138,7 @@ input UserUpdateWithoutLovingDataInput {
   email: String
   password: String
   name: String
+  role: Role
   watching: WatchingUpdateManyWithoutUserInput
 }
 
@@ -1784,6 +2146,7 @@ input UserUpdateWithoutWatchingDataInput {
   email: String
   password: String
   name: String
+  role: Role
   loving: LovingUpdateManyWithoutUserInput
 }
 
@@ -2022,6 +2385,19 @@ input UserWhereInput {
   All values not ending with the given string.
   """
   name_not_ends_with: String
+  role: Role
+  """
+  All values that are not equal to given value.
+  """
+  role_not: Role
+  """
+  All values that are contained in given list.
+  """
+  role_in: [Role!]
+  """
+  All values that are not contained in given list.
+  """
+  role_not_in: [Role!]
   watching_every: WatchingWhereInput
   watching_some: WatchingWhereInput
   watching_none: WatchingWhereInput
@@ -2275,58 +2651,70 @@ input WatchingWhereUniqueInput {
 type Mutation {
   createUser(data: UserCreateInput!): User!
   createBusiness(data: BusinessCreateInput!): Business!
-  createLoving(data: LovingCreateInput!): Loving!
-  createWatching(data: WatchingCreateInput!): Watching!
   createLocation(data: LocationCreateInput!): Location!
   createCoordinates(data: CoordinatesCreateInput!): Coordinates!
   createCategory(data: CategoryCreateInput!): Category!
+  createLoving(data: LovingCreateInput!): Loving!
+  createWatching(data: WatchingCreateInput!): Watching!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business
+  updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
+  updateCoordinates(data: CoordinatesUpdateInput!, where: CoordinatesWhereUniqueInput!): Coordinates
+  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
   updateLoving(data: LovingUpdateInput!, where: LovingWhereUniqueInput!): Loving
   updateWatching(data: WatchingUpdateInput!, where: WatchingWhereUniqueInput!): Watching
   deleteUser(where: UserWhereUniqueInput!): User
   deleteBusiness(where: BusinessWhereUniqueInput!): Business
+  deleteLocation(where: LocationWhereUniqueInput!): Location
+  deleteCoordinates(where: CoordinatesWhereUniqueInput!): Coordinates
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
   deleteLoving(where: LovingWhereUniqueInput!): Loving
   deleteWatching(where: WatchingWhereUniqueInput!): Watching
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertBusiness(where: BusinessWhereUniqueInput!, create: BusinessCreateInput!, update: BusinessUpdateInput!): Business!
+  upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
+  upsertCoordinates(where: CoordinatesWhereUniqueInput!, create: CoordinatesCreateInput!, update: CoordinatesUpdateInput!): Coordinates!
+  upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
   upsertLoving(where: LovingWhereUniqueInput!, create: LovingCreateInput!, update: LovingUpdateInput!): Loving!
   upsertWatching(where: WatchingWhereUniqueInput!, create: WatchingCreateInput!, update: WatchingUpdateInput!): Watching!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyBusinesses(data: BusinessUpdateInput!, where: BusinessWhereInput): BatchPayload!
-  updateManyLovings(data: LovingUpdateInput!, where: LovingWhereInput): BatchPayload!
-  updateManyWatchings(data: WatchingUpdateInput!, where: WatchingWhereInput): BatchPayload!
   updateManyLocations(data: LocationUpdateInput!, where: LocationWhereInput): BatchPayload!
   updateManyCoordinateses(data: CoordinatesUpdateInput!, where: CoordinatesWhereInput): BatchPayload!
   updateManyCategories(data: CategoryUpdateInput!, where: CategoryWhereInput): BatchPayload!
+  updateManyLovings(data: LovingUpdateInput!, where: LovingWhereInput): BatchPayload!
+  updateManyWatchings(data: WatchingUpdateInput!, where: WatchingWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyBusinesses(where: BusinessWhereInput): BatchPayload!
-  deleteManyLovings(where: LovingWhereInput): BatchPayload!
-  deleteManyWatchings(where: WatchingWhereInput): BatchPayload!
   deleteManyLocations(where: LocationWhereInput): BatchPayload!
   deleteManyCoordinateses(where: CoordinatesWhereInput): BatchPayload!
   deleteManyCategories(where: CategoryWhereInput): BatchPayload!
+  deleteManyLovings(where: LovingWhereInput): BatchPayload!
+  deleteManyWatchings(where: WatchingWhereInput): BatchPayload!
 }
 
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   businesses(where: BusinessWhereInput, orderBy: BusinessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Business]!
-  lovings(where: LovingWhereInput, orderBy: LovingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Loving]!
-  watchings(where: WatchingWhereInput, orderBy: WatchingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Watching]!
   locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
   coordinateses(where: CoordinatesWhereInput, orderBy: CoordinatesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Coordinates]!
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
+  lovings(where: LovingWhereInput, orderBy: LovingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Loving]!
+  watchings(where: WatchingWhereInput, orderBy: WatchingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Watching]!
   user(where: UserWhereUniqueInput!): User
   business(where: BusinessWhereUniqueInput!): Business
+  location(where: LocationWhereUniqueInput!): Location
+  coordinates(where: CoordinatesWhereUniqueInput!): Coordinates
+  category(where: CategoryWhereUniqueInput!): Category
   loving(where: LovingWhereUniqueInput!): Loving
   watching(where: WatchingWhereUniqueInput!): Watching
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   businessesConnection(where: BusinessWhereInput, orderBy: BusinessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessConnection!
-  lovingsConnection(where: LovingWhereInput, orderBy: LovingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LovingConnection!
-  watchingsConnection(where: WatchingWhereInput, orderBy: WatchingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WatchingConnection!
   locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
   coordinatesesConnection(where: CoordinatesWhereInput, orderBy: CoordinatesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CoordinatesConnection!
   categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
+  lovingsConnection(where: LovingWhereInput, orderBy: LovingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LovingConnection!
+  watchingsConnection(where: WatchingWhereInput, orderBy: WatchingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WatchingConnection!
   """
   Fetches an object given its ID
   """
@@ -2339,11 +2727,11 @@ type Query {
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   business(where: BusinessSubscriptionWhereInput): BusinessSubscriptionPayload
-  loving(where: LovingSubscriptionWhereInput): LovingSubscriptionPayload
-  watching(where: WatchingSubscriptionWhereInput): WatchingSubscriptionPayload
   location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
   coordinates(where: CoordinatesSubscriptionWhereInput): CoordinatesSubscriptionPayload
   category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
+  loving(where: LovingSubscriptionWhereInput): LovingSubscriptionPayload
+  watching(where: WatchingSubscriptionWhereInput): WatchingSubscriptionPayload
 }
 `
 
@@ -2360,12 +2748,6 @@ module.exports.Prisma = class Binding extends Prisma {
       Business(where) {
         return super.existsDelegate('query', 'businesses', { where }, {}, '{ id }')
       },
-      Loving(where) {
-        return super.existsDelegate('query', 'lovings', { where }, {}, '{ id }')
-      },
-      Watching(where) {
-        return super.existsDelegate('query', 'watchings', { where }, {}, '{ id }')
-      },
       Location(where) {
         return super.existsDelegate('query', 'locations', { where }, {}, '{ id }')
       },
@@ -2374,6 +2756,12 @@ module.exports.Prisma = class Binding extends Prisma {
       },
       Category(where) {
         return super.existsDelegate('query', 'categories', { where }, {}, '{ id }')
+      },
+      Loving(where) {
+        return super.existsDelegate('query', 'lovings', { where }, {}, '{ id }')
+      },
+      Watching(where) {
+        return super.existsDelegate('query', 'watchings', { where }, {}, '{ id }')
       }
     }
 
@@ -2384,12 +2772,6 @@ module.exports.Prisma = class Binding extends Prisma {
       businesses(args, info) { 
         return self.delegate('query', 'businesses', args, {}, info)
       },
-      lovings(args, info) { 
-        return self.delegate('query', 'lovings', args, {}, info)
-      },
-      watchings(args, info) { 
-        return self.delegate('query', 'watchings', args, {}, info)
-      },
       locations(args, info) { 
         return self.delegate('query', 'locations', args, {}, info)
       },
@@ -2399,11 +2781,26 @@ module.exports.Prisma = class Binding extends Prisma {
       categories(args, info) { 
         return self.delegate('query', 'categories', args, {}, info)
       },
+      lovings(args, info) { 
+        return self.delegate('query', 'lovings', args, {}, info)
+      },
+      watchings(args, info) { 
+        return self.delegate('query', 'watchings', args, {}, info)
+      },
       user(args, info) { 
         return self.delegate('query', 'user', args, {}, info)
       },
       business(args, info) { 
         return self.delegate('query', 'business', args, {}, info)
+      },
+      location(args, info) { 
+        return self.delegate('query', 'location', args, {}, info)
+      },
+      coordinates(args, info) { 
+        return self.delegate('query', 'coordinates', args, {}, info)
+      },
+      category(args, info) { 
+        return self.delegate('query', 'category', args, {}, info)
       },
       loving(args, info) { 
         return self.delegate('query', 'loving', args, {}, info)
@@ -2417,12 +2814,6 @@ module.exports.Prisma = class Binding extends Prisma {
       businessesConnection(args, info) { 
         return self.delegate('query', 'businessesConnection', args, {}, info)
       },
-      lovingsConnection(args, info) { 
-        return self.delegate('query', 'lovingsConnection', args, {}, info)
-      },
-      watchingsConnection(args, info) { 
-        return self.delegate('query', 'watchingsConnection', args, {}, info)
-      },
       locationsConnection(args, info) { 
         return self.delegate('query', 'locationsConnection', args, {}, info)
       },
@@ -2431,6 +2822,12 @@ module.exports.Prisma = class Binding extends Prisma {
       },
       categoriesConnection(args, info) { 
         return self.delegate('query', 'categoriesConnection', args, {}, info)
+      },
+      lovingsConnection(args, info) { 
+        return self.delegate('query', 'lovingsConnection', args, {}, info)
+      },
+      watchingsConnection(args, info) { 
+        return self.delegate('query', 'watchingsConnection', args, {}, info)
       },
       node(args, info) { 
         return self.delegate('query', 'node', args, {}, info)
@@ -2444,12 +2841,6 @@ module.exports.Prisma = class Binding extends Prisma {
       createBusiness(args, info) { 
         return self.delegate('mutation', 'createBusiness', args, {}, info)
       },
-      createLoving(args, info) { 
-        return self.delegate('mutation', 'createLoving', args, {}, info)
-      },
-      createWatching(args, info) { 
-        return self.delegate('mutation', 'createWatching', args, {}, info)
-      },
       createLocation(args, info) { 
         return self.delegate('mutation', 'createLocation', args, {}, info)
       },
@@ -2459,11 +2850,26 @@ module.exports.Prisma = class Binding extends Prisma {
       createCategory(args, info) { 
         return self.delegate('mutation', 'createCategory', args, {}, info)
       },
+      createLoving(args, info) { 
+        return self.delegate('mutation', 'createLoving', args, {}, info)
+      },
+      createWatching(args, info) { 
+        return self.delegate('mutation', 'createWatching', args, {}, info)
+      },
       updateUser(args, info) { 
         return self.delegate('mutation', 'updateUser', args, {}, info)
       },
       updateBusiness(args, info) { 
         return self.delegate('mutation', 'updateBusiness', args, {}, info)
+      },
+      updateLocation(args, info) { 
+        return self.delegate('mutation', 'updateLocation', args, {}, info)
+      },
+      updateCoordinates(args, info) { 
+        return self.delegate('mutation', 'updateCoordinates', args, {}, info)
+      },
+      updateCategory(args, info) { 
+        return self.delegate('mutation', 'updateCategory', args, {}, info)
       },
       updateLoving(args, info) { 
         return self.delegate('mutation', 'updateLoving', args, {}, info)
@@ -2477,6 +2883,15 @@ module.exports.Prisma = class Binding extends Prisma {
       deleteBusiness(args, info) { 
         return self.delegate('mutation', 'deleteBusiness', args, {}, info)
       },
+      deleteLocation(args, info) { 
+        return self.delegate('mutation', 'deleteLocation', args, {}, info)
+      },
+      deleteCoordinates(args, info) { 
+        return self.delegate('mutation', 'deleteCoordinates', args, {}, info)
+      },
+      deleteCategory(args, info) { 
+        return self.delegate('mutation', 'deleteCategory', args, {}, info)
+      },
       deleteLoving(args, info) { 
         return self.delegate('mutation', 'deleteLoving', args, {}, info)
       },
@@ -2488,6 +2903,15 @@ module.exports.Prisma = class Binding extends Prisma {
       },
       upsertBusiness(args, info) { 
         return self.delegate('mutation', 'upsertBusiness', args, {}, info)
+      },
+      upsertLocation(args, info) { 
+        return self.delegate('mutation', 'upsertLocation', args, {}, info)
+      },
+      upsertCoordinates(args, info) { 
+        return self.delegate('mutation', 'upsertCoordinates', args, {}, info)
+      },
+      upsertCategory(args, info) { 
+        return self.delegate('mutation', 'upsertCategory', args, {}, info)
       },
       upsertLoving(args, info) { 
         return self.delegate('mutation', 'upsertLoving', args, {}, info)
@@ -2501,12 +2925,6 @@ module.exports.Prisma = class Binding extends Prisma {
       updateManyBusinesses(args, info) { 
         return self.delegate('mutation', 'updateManyBusinesses', args, {}, info)
       },
-      updateManyLovings(args, info) { 
-        return self.delegate('mutation', 'updateManyLovings', args, {}, info)
-      },
-      updateManyWatchings(args, info) { 
-        return self.delegate('mutation', 'updateManyWatchings', args, {}, info)
-      },
       updateManyLocations(args, info) { 
         return self.delegate('mutation', 'updateManyLocations', args, {}, info)
       },
@@ -2516,17 +2934,17 @@ module.exports.Prisma = class Binding extends Prisma {
       updateManyCategories(args, info) { 
         return self.delegate('mutation', 'updateManyCategories', args, {}, info)
       },
+      updateManyLovings(args, info) { 
+        return self.delegate('mutation', 'updateManyLovings', args, {}, info)
+      },
+      updateManyWatchings(args, info) { 
+        return self.delegate('mutation', 'updateManyWatchings', args, {}, info)
+      },
       deleteManyUsers(args, info) { 
         return self.delegate('mutation', 'deleteManyUsers', args, {}, info)
       },
       deleteManyBusinesses(args, info) { 
         return self.delegate('mutation', 'deleteManyBusinesses', args, {}, info)
-      },
-      deleteManyLovings(args, info) { 
-        return self.delegate('mutation', 'deleteManyLovings', args, {}, info)
-      },
-      deleteManyWatchings(args, info) { 
-        return self.delegate('mutation', 'deleteManyWatchings', args, {}, info)
       },
       deleteManyLocations(args, info) { 
         return self.delegate('mutation', 'deleteManyLocations', args, {}, info)
@@ -2536,6 +2954,12 @@ module.exports.Prisma = class Binding extends Prisma {
       },
       deleteManyCategories(args, info) { 
         return self.delegate('mutation', 'deleteManyCategories', args, {}, info)
+      },
+      deleteManyLovings(args, info) { 
+        return self.delegate('mutation', 'deleteManyLovings', args, {}, info)
+      },
+      deleteManyWatchings(args, info) { 
+        return self.delegate('mutation', 'deleteManyWatchings', args, {}, info)
       }
     }
       
@@ -2546,12 +2970,6 @@ module.exports.Prisma = class Binding extends Prisma {
       business(args, infoOrQuery) { 
         return self.delegateSubscription('business', args, {}, infoOrQuery)
       },
-      loving(args, infoOrQuery) { 
-        return self.delegateSubscription('loving', args, {}, infoOrQuery)
-      },
-      watching(args, infoOrQuery) { 
-        return self.delegateSubscription('watching', args, {}, infoOrQuery)
-      },
       location(args, infoOrQuery) { 
         return self.delegateSubscription('location', args, {}, infoOrQuery)
       },
@@ -2560,6 +2978,12 @@ module.exports.Prisma = class Binding extends Prisma {
       },
       category(args, infoOrQuery) { 
         return self.delegateSubscription('category', args, {}, infoOrQuery)
+      },
+      loving(args, infoOrQuery) { 
+        return self.delegateSubscription('loving', args, {}, infoOrQuery)
+      },
+      watching(args, infoOrQuery) { 
+        return self.delegateSubscription('watching', args, {}, infoOrQuery)
       }
     }
   }
