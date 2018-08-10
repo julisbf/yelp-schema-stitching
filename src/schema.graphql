@@ -56,9 +56,9 @@ type Mutation {
     name: String!
     price: String
     photos: String
-    location: LocationCreateOneInput
-    coordinates: CoordinatesCreateOneInput
-    categories: CategoryCreateManyInput
+    location: LocationCreateOneWithoutBusinessInput
+    coordinates: CoordinatesCreateOneWithoutBusinessInput
+    categories: CategoryCreateManyWithoutBusinessInput
   ): Business!
   updateBusiness(
     id: ID!
@@ -66,10 +66,11 @@ type Mutation {
     name: String
     price: String
     photos: String
-    location: LocationUpdateOneInput
-    coordinates: CoordinatesUpdateOneInput
-    categories: CategoryUpdateManyInput
+    location: LocationUpdateOneWithoutBusinessInput
+    coordinates: CoordinatesUpdateOneWithoutBusinessInput
+    categories: CategoryUpdateManyWithoutBusinessInput
   ): Business!
+  deleteBusiness(placeId: ID!): Business
   addLoveToBusiness(placeId: ID!): Loving!
   removeLoveToBusiness(placeId: ID!): Loving!
   addWatchToBusiness(placeId: ID!): Watching!
