@@ -71,4 +71,4 @@ Since the browser has been throwing a CORS error, you should consider to install
 
 The playground lets you interact with all three GraphQL APIs that are defined in [![`.graphqlconfig.yml`](./.graphqlconfig.yml)].
 
-## [![Live Demo](https://resto-app-server.herokuapp.com/)]
+## [![Live Demo]](https://resto-app-server.herokuapp.com/)
