@@ -9,9 +9,6 @@ const {
 const {
   makeRemoteExecutableSchema
 } = require('graphql-tools')
-const {
-  setContext
-} = require('apollo-link-context')
 const yelpTypes = require('./generated/yelp.js')
 
 const DELIVERY_API_BASE_URL = 'https://api.yelp.com/v3/graphql'
