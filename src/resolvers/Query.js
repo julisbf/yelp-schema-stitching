@@ -8,7 +8,7 @@ const Query = {
     userId = getUserId(context)
     return context.db.query.user({
       where: {
-        userId
+        id: userId
       }
     }, info)
   },
