@@ -17,7 +17,7 @@ const Query = {
   }, context, info) {
     const queriedBusiness = await context.db.query.business({
         where: {
-          userId
+          id
         }
       },
       info)
