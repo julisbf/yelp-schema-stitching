@@ -18,7 +18,7 @@ const business = {
     if (placeExists) {
       throw new Error(`${args.name} already created`)
     }
-    console.log(args.categories)
+
     const newPlace = await context.db.mutation.createBusiness({
         data: {
           yelpId: args.yelpId,
@@ -38,13 +38,30 @@ const business = {
     throw new Error(`Place can't be created`)
   },
   async updateBusiness(parent, args, context, info) {
+    const userId = getUserId(context)
     const updates = { ...args
     }
-    //const category = updates.cat_title;
-    console.log(updates)
+
     delete updates.id
 
-    //if (updates.hasOwnProperty('location'))
+    const placeExists = await context.db.exists.Business({
+        id: args.id
+      },
+      info
+    )
+
+    const requestingUserIsAdmin = await context.db.exists.User({
+      id: userId,
+      role: 'ADMIN',
+    })
+
+    if (!requestingUserIsAdmin) {
+      throw new Error(`You don't have access rights to update it.`)
+    }
+
+    if (!placeExists) {
+      throw new Error(`Place not found`)
+    }
 
     return context.db.mutation.updateBusiness({
       where: {
@@ -54,6 +71,32 @@ const business = {
         ...updates,
       }
     }, info)
+  },
+  async deleteBusiness(parent, args, context, info) {
+    const userId = getUserId(context)
+    const placeExists = await context.db.exists.Business({
+        id: args.placeId
+      },
+      info
+    )
+    const requestingUserIsAdmin = await context.db.exists.User({
+      id: userId,
+      role: 'ADMIN',
+    })
+
+    if (!requestingUserIsAdmin) {
+      throw new Error(`You don't have access rights to delete it.`)
+    }
+
+    if (!placeExists) {
+      throw new Error(`Place not found`)
+    }
+
+    return context.db.mutation.deleteBusiness({
+      where: {
+        id: args.placeId
+      }
+    })
   },
   async addLoveToBusiness(parent, args, context, info) {
     const userId = getUserId(context)
