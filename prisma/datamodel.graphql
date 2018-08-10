@@ -5,6 +5,12 @@ type User {
   name: String!
   watching: [Watching!]!
   loving: [Loving!]!
+  role: Role! @default(value: "FOODIE")
+}
+
+enum Role {
+  ADMIN
+  FOODIE
 }
 
 type Business {
@@ -14,38 +20,46 @@ type Business {
   name: String!
   yelpId: String!
   price: String
-  location: Location
-  coordinates: Coordinates
+  location: Location! @relation(name: "BusinessLocation", onDelete: CASCADE)
+  coordinates: Coordinates!
+    @relation(name: "BusinessCoordinates", onDelete: CASCADE)
   categories: [Category!]!
+    @relation(name: "BusinessCategories", onDelete: CASCADE)
   photos: String
-  watchers: [Watching!]!
-  lovers: [Loving!]!
+  watchers: [Watching!]! @relation(name: "BusinessWatchers", onDelete: CASCADE)
+  lovers: [Loving!]! @relation(name: "BusinessLovers", onDelete: CASCADE)
 }
 
 type Location {
+  id: ID! @unique
   address1: String!
   city: String!
   state: String
   country: String!
+  business: Business! @relation(name: "BusinessLocation")
 }
 
 type Coordinates {
+  id: ID! @unique
   latitude: Float
   longitude: Float
+  business: Business! @relation(name: "BusinessCoordinates")
 }
 
 type Category {
+  id: ID! @unique
   title: String
+  business: Business! @relation(name: "BusinessCategories")
 }
 
 type Loving {
   id: ID! @unique
-  business: Business!
+  business: Business! @relation(name: "BusinessLovers")
   user: User!
 }
 
 type Watching {
   id: ID! @unique
-  business: Business!
+  business: Business! @relation(name: "BusinessWatchers")
   user: User!
 }
