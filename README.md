@@ -1,4 +1,8 @@
-# yelp-schema-stitching
+# Yelp and Prisma Schema Stitching
+
+[![node](https://img.shields.io/badge/node-v9.10.0-blue.svg)](https://nodejs.org/en/)
+[![npm](https://img.shields.io/badge/npm-v6.3.0-blue.svg)](https://www.npmjs.com/)
+[![prisma](https://img.shields.io/badge/prisma-v1.13.7-darkblue.svg)](https://www.prisma.io/)
 
 This repository contains a GraphQL API that is composed of two GraphQL APIs (from Prisma & Yelp) using schema stitching (via GraphQL bindings).
 
@@ -14,7 +18,7 @@ npm install
 
 ### 2. Create your Prisma account
 
-Go to [prisma](http://prisma.io/)
+Go to [![prisma](http://prisma.io/)]
 
 ### 3. Deploy the Prisma service
 
@@ -25,7 +29,7 @@ prisma deploy
 
 When prompted by the CLI where to deploy the service, select the **Demo server** and register with Prisma Cloud. If you have Docker installed, you can also deploy locally.
 
-Once the command has finished, the Prisma CLI writes the `endpoint` property to [`prisma.yml`](./prisma/prisma.yml).
+Once the command has finished, the Prisma CLI writes the `endpoint` property to [![`prisma.yml`](./prisma/prisma.yml)].
 
 ### 4. Create .env file
 
@@ -63,6 +67,8 @@ graphql playground
 
 ### 7. Or install Playground Desktop App
 
-Since the browser has been throwing a CORS error, you should consider to install [GraphQL IDE desktop app](https://github.com/prismagraphql/graphql-playground/releases)
+Since the browser has been throwing a CORS error, you should consider to install [![GraphQL IDE desktop app](https://github.com/prismagraphql/graphql-playground/releases)]
 
-The playground lets you interact with all three GraphQL APIs that are defined in [`.graphqlconfig.yml`](./.graphqlconfig.yml).
+The playground lets you interact with all three GraphQL APIs that are defined in [![`.graphqlconfig.yml`](./.graphqlconfig.yml)].
+
+## [![Live Demo](https://resto-app-server.herokuapp.com/)]
