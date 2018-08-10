@@ -1,94 +1,86 @@
 const {
   getUserId
 } = require('../utils')
+let userId = ''
 
 const Query = {
   me(parent, args, context, info) {
-    const id = getUserId(context)
+    userId = getUserId(context)
     return context.db.query.user({
       where: {
-        id
+        userId
       }
     }, info)
   },
-  search(parent, {
-    term,
-    location,
-    limit
-  }, context, info) {
-    return context.ylp.query.search({
-        term,
-        location,
-        limit
-      },
-      `{total business {id name price photos location {address1 city state country} coordinates{latitude longitude} categories{title}}}
-    `)
-  },
-  business(parent, {
+  async business(parent, {
     id
   }, context, info) {
-    return context.ylp.query.business({
-        id
+    const queriedBusiness = await context.db.query.business({
+        where: {
+          userId
+        }
       },
-      `{id name price photos location{address1 city state country} coordinates{latitude longitude} categories{title}}`)
-  },
-  async userLovedPlaces(parent, args, context, info) {
-    const id = getUserId(context)
-    const where = {
-      lover: {
-        id: id
-      }
+      info)
+    if (queriedBusiness) {
+      return queriedBusiness
     }
-    const queriedLoves = await context.db.query.lovings({
-      where,
-      skip: args.skip,
-      first: args.first
-    })
-    if (queriedLoves.length == 0) {
-      throw new Error(`No loved places`)
-    }
-    const countSelectionSet = `
-    {
-      aggregate {
-        count
-      }
-    }
-    `
-    const lovingsConnection = await context.db.query.lovingsConnection({}, countSelectionSet)
 
-    return {
-      count: lovingsConnection.aggregate.count,
-      lovesIds: queriedLoves.map(place => place.id),
-    }
+    throw new Error(`Couldn't find business id: ${id}`)
   },
-  async userWatchedPlaces(parent, args, context, info) {
-    const id = getUserId(context)
-    const where = {
-      watcher: {
-        id: id
-      }
-    }
-    const queriedWatches = await context.db.query.watchings({
-      where,
-      skip: args.skip,
-      first: args.first
-    })
-    if (queriedWatches.length == 0) {
-      throw new Error(`No watched places`)
-    }
-    const countSelectionSet = `
-    {
-      aggregate {
-        count
-      }
-    }
-    `
-    const watchingsConnection = await context.db.query.watchingsConnection({}, countSelectionSet)
+  async businesses(parent, args, context, info) {
+    const queriedBusinesses = await context.db.query.businesses({
 
-    return {
-      count: watchingsConnection.aggregate.count,
-      lovesIds: queriedWatches.map(place => place.id),
+    }, info)
+
+    if (queriedBusinesses) {
+      return queriedBusinesses
     }
+
+    throw new Error(`No businesses have been added`)
+  },
+  async totalLovingByCurrentUser(parent, args, context, info) {
+    userId = getUserId(context)
+    return await context.db.query.lovingsConnection({
+      where: {
+        user: {
+          id: userId
+        }
+      }
+    }, info)
+  },
+  async totalWatchingByCurrentUser(parent, args, context, info) {
+    userId = getUserId(context)
+    return await context.db.query.watchingsConnection({
+      where: {
+        user: {
+          id: userId
+        }
+      }
+    }, info)
+  },
+  async totalLovingBusiness(parent, {
+    placeId
+  }, context, info) {
+
+    return await context.db.query.lovingsConnection({
+      where: {
+        business: {
+          id: placeId
+        }
+      }
+    }, info)
+  },
+  async totalWatchingBusiness(parent, {
+    placeId
+  }, context, info) {
+
+    return await context.db.query.watchingsConnection({
+      where: {
+        business: {
+          id: placeId
+        }
+      }
+    }, info)
   }
 }
 
