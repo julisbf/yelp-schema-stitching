@@ -1,8 +1,8 @@
 # Yelp and Prisma Schema Stitching
 
 [![node](https://img.shields.io/badge/node-v9.10.0-blue.svg)](https://nodejs.org/en/)
-[![npm](https://img.shields.io/badge/npm-v6.3.0-blue.svg)](https://www.npmjs.com/)
-[![prisma](https://img.shields.io/badge/prisma-v1.13.7-darkblue.svg)](https://www.prisma.io/)
+[![npm](https://img.shields.io/badge/npm-v6.3.0-green.svg)](https://www.npmjs.com/)
+[![prisma](https://img.shields.io/badge/prisma-v1.13.7-red.svg)](https://www.prisma.io/)
 
 This repository contains a GraphQL API that is composed of two GraphQL APIs (from Prisma & Yelp) using schema stitching (via GraphQL bindings).
 
