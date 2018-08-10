@@ -18,7 +18,7 @@ npm install
 
 ### 2. Create your Prisma account
 
-Go to [![prisma](http://prisma.io/)]
+Go to ![prisma](http://prisma.io/)
 
 ### 3. Deploy the Prisma service
 
@@ -29,7 +29,7 @@ prisma deploy
 
 When prompted by the CLI where to deploy the service, select the **Demo server** and register with Prisma Cloud. If you have Docker installed, you can also deploy locally.
 
-Once the command has finished, the Prisma CLI writes the `endpoint` property to [![`prisma.yml`](./prisma/prisma.yml)].
+Once the command has finished, the Prisma CLI writes the `endpoint` property to ![`prisma.yml`](./prisma/prisma.yml).
 
 ### 4. Create .env file
 
@@ -49,7 +49,7 @@ Add jsonwebtoken Token \
 
 `PORT = 8080`
 
-> **Note:** You’ll need to create a client, join the beta program, and grab the API key from your [client settings](https://www.yelp.com/developers/v3/manage_app)
+> **Note:** You’ll need to create a client, join the beta program, and grab the API key from your ![client settings](https://www.yelp.com/developers/v3/manage_app)
 
 ### 5. Start your server
 
@@ -67,8 +67,8 @@ graphql playground
 
 ### 7. Or install Playground Desktop App
 
-Since the browser has been throwing a CORS error, you should consider to install [![GraphQL IDE desktop app](https://github.com/prismagraphql/graphql-playground/releases)]
+Since the browser has been throwing a CORS error, you should consider to install ![GraphQL IDE desktop app](https://github.com/prismagraphql/graphql-playground/releases)
 
-The playground lets you interact with all three GraphQL APIs that are defined in [![`.graphqlconfig.yml`](./.graphqlconfig.yml)].
+The playground lets you interact with all three GraphQL APIs that are defined in ![`.graphqlconfig.yml`](./.graphqlconfig.yml).
 
-## [![Live Demo]](https://resto-app-server.herokuapp.com/)
+### ![Live Demo](https://resto-app-server.herokuapp.com/)
