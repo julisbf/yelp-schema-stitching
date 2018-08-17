@@ -6,7 +6,7 @@
 
 This repository contains a GraphQL API that is composed of two GraphQL APIs (from Prisma & Yelp) using schema stitching (via GraphQL bindings).
 
-### [Live Demo](https://resto-app-server.herokuapp.com/)
+## [Live Demo](https://resto-app-server.herokuapp.com/)
 
 ## Usage
 
@@ -72,3 +72,35 @@ graphql playground
 Since the browser has been throwing a CORS error, you should consider to install [GraphQL IDE desktop app](https://github.com/prismagraphql/graphql-playground/releases)
 
 The playground lets you interact with all three GraphQL APIs that are defined in [`.graphqlconfig.yml`](./.graphqlconfig.yml).
+
+### 8. Play around with the [live demo](https://resto-app-server.herokuapp.com/)
+
+Copy and paste
+
+```graphql
+mutation{
+  login(email:"test@mail.com", password:"test") {
+    token
+  }
+}
+```
+
+Copy this in the bottom tap *HTTP HEADERS* and replace *_TOKEN_VALUE_* with the token value
+
+```javascript
+{
+  "Authorization" : "_TOKEN_VALUE_"
+}
+```
+
+If you want to create a new user (be aware is not going to have ADMIN privilage), copy
+
+```graphql
+mutation{
+  signup(email:"any@mail.com", password:"your_choice", name:"any_name") {
+    token
+  }
+}
+```
+
+And then do *HTTP HEADERS* step
