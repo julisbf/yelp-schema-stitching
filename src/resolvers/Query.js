@@ -12,6 +12,22 @@ const Query = {
       }
     }, info)
   },
+  async users(parent, args, context, info) {
+    const userId = getUserId(context)
+
+    const requestingUserIsAdmin = await context.db.exists.User({
+      id: userId,
+      role: 'ADMIN',
+    })
+
+    if (!requestingUserIsAdmin) {
+      throw new Error(`You don't have access rights to update it.`)
+    }
+
+    return context.db.query.users({
+      ...args
+    }, info)
+  },
   async business(parent, {
     id
   }, context, info) {
@@ -29,7 +45,7 @@ const Query = {
   },
   async businesses(parent, args, context, info) {
     const queriedBusinesses = await context.db.query.businesses({
-
+      ...args
     }, info)
 
     if (queriedBusinesses) {
