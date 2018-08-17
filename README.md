@@ -6,6 +6,8 @@
 
 This repository contains a GraphQL API that is composed of two GraphQL APIs (from Prisma & Yelp) using schema stitching (via GraphQL bindings).
 
+I started this repository when was part of a team in [Chingu](https://chingu.io/) Voyage 5 - _"Chingu is a global collaboration platform and coding-cohort generator. We connect motivated learners with shared goals to learn, help and build together."_.
+
 ## [Live Demo](https://resto-app-server.herokuapp.com/)
 
 ## Usage
