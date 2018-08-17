@@ -6,13 +6,33 @@ type Query {
   """
   me: User
   """
+  Retrieve all users data
+  """
+  users(
+    where: UserWhereInput
+    orderBy: UserOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [User]!
+  """
   Search a specific business in Resto DB
   """
   business(id: String!): Business! #Resto Api
   """
   Bring all restaurants saved in Resto DB
   """
-  businesses: [Business!]! #Resto Api
+  businesses(
+    where: BusinessWhereInput
+    orderBy: BusinessOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Business]! #Resto Api
   """
   Total number of restaurant the current user is loving
   """
@@ -48,32 +68,48 @@ type Query {
 }
 
 type Mutation {
+  """
+  Create a new user
+  """
   signup(email: String!, password: String!, name: String!): AuthPayload!
+  """
+  Sign In an existing user
+  """
   login(email: String!, password: String!): AuthPayload!
+  """
+   Disconnect the current user
+  """
   signout: SuccessMessage
-  createBusiness(
-    yelpId: String!
-    name: String!
-    price: String
-    photos: String
-    location: LocationCreateOneWithoutBusinessInput
-    coordinates: CoordinatesCreateOneWithoutBusinessInput
-    categories: CategoryCreateManyWithoutBusinessInput
-  ): Business!
+  """
+   Create a new business in Resto DB
+  """
+  createBusiness(data: BusinessCreateInput!): Business!
+  """
+   Update a specific business
+  """
   updateBusiness(
-    id: ID!
-    yelpId: String
-    name: String
-    price: String
-    photos: String
-    location: LocationUpdateOneWithoutBusinessInput
-    coordinates: CoordinatesUpdateOneWithoutBusinessInput
-    categories: CategoryUpdateManyWithoutBusinessInput
+    data: BusinessUpdateInput
+    where: BusinessWhereUniqueInput!
   ): Business!
+  """
+   Delete an existing business. Only ADMIN role can do it
+  """
   deleteBusiness(placeId: ID!): Business
+  """
+   Add a business to current user favorites list
+  """
   addLoveToBusiness(placeId: ID!): Loving!
+  """
+   Remove a specific business from current user favorites list
+  """
   removeLoveToBusiness(placeId: ID!): Loving!
+  """
+   Add a business from current user wishlist
+  """
   addWatchToBusiness(placeId: ID!): Watching!
+  """
+   Remove a specific business from current user wishlist
+  """
   removeWatchToBusiness(placeId: ID!): Watching!
 }
 
@@ -89,11 +125,6 @@ type User {
   loving: [Loving!]!
   watching: [Watching!]!
 }
-
-# type Businesses {
-#   business: [Business!]!
-#   total: Int
-# }
 
 type SuccessMessage {
   message: String
