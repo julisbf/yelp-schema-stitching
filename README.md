@@ -103,4 +103,4 @@ mutation {
 }
 ```
 
-And then do *HTTP HEADERS* step
+And then do *HTTP HEADERS* step from above
