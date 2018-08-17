@@ -78,7 +78,7 @@ The playground lets you interact with all three GraphQL APIs that are defined in
 Copy and paste
 
 ```graphql
-mutation{
+mutation {
   login(email:"test@mail.com", password:"test") {
     token
   }
@@ -96,7 +96,7 @@ Copy this in the bottom tap *HTTP HEADERS* and replace *_TOKEN_VALUE_* with the 
 If you want to create a new user (be aware is not going to have ADMIN privilage), copy
 
 ```graphql
-mutation{
+mutation {
   signup(email:"any@mail.com", password:"your_choice", name:"any_name") {
     token
   }
