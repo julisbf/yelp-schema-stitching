@@ -5,29 +5,24 @@ const {
 const business = {
   async createBusiness(parent, args, context, info) {
     const userId = getUserId(context)
+    const data = args.data;
 
     if (!userId) {
       throw new Error(`Invalid permissions, you must be an active user`)
     }
 
     const placeExists = await context.db.exists.Business({
-        yelpId: args.yelpId
+        yelpId: data.yelpId
       },
       info
     )
     if (placeExists) {
-      throw new Error(`${args.name} already created`)
+      throw new Error(`A business with Yelp Id: ${data.yelpId} already exist`)
     }
 
     const newPlace = await context.db.mutation.createBusiness({
         data: {
-          yelpId: args.yelpId,
-          name: args.name,
-          price: args.price,
-          photos: args.photos,
-          location: args.location,
-          coordinates: args.coordinates,
-          categories: args.categories
+          ...data
         }
       },
       info
@@ -39,16 +34,9 @@ const business = {
   },
   async updateBusiness(parent, args, context, info) {
     const userId = getUserId(context)
-    const updates = { ...args
+    const updates = { ...args.data
     }
-
-    delete updates.id
-
-    const placeExists = await context.db.exists.Business({
-        id: args.id
-      },
-      info
-    )
+    const bizId = args.where.id;
 
     const requestingUserIsAdmin = await context.db.exists.User({
       id: userId,
@@ -59,13 +47,19 @@ const business = {
       throw new Error(`You don't have access rights to update it.`)
     }
 
+    const placeExists = await context.db.exists.Business({
+        id: bizId
+      },
+      info
+    )
+
     if (!placeExists) {
       throw new Error(`Place not found`)
     }
 
     return context.db.mutation.updateBusiness({
       where: {
-        id: args.id
+        id: bizId
       },
       data: {
         ...updates,
@@ -74,11 +68,7 @@ const business = {
   },
   async deleteBusiness(parent, args, context, info) {
     const userId = getUserId(context)
-    const placeExists = await context.db.exists.Business({
-        id: args.placeId
-      },
-      info
-    )
+
     const requestingUserIsAdmin = await context.db.exists.User({
       id: userId,
       role: 'ADMIN',
@@ -87,6 +77,12 @@ const business = {
     if (!requestingUserIsAdmin) {
       throw new Error(`You don't have access rights to delete it.`)
     }
+
+    const placeExists = await context.db.exists.Business({
+        id: args.placeId
+      },
+      info
+    )
 
     if (!placeExists) {
       throw new Error(`Place not found`)
