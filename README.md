@@ -77,7 +77,21 @@ The playground lets you interact with all three GraphQL APIs that are defined in
 
 ### 8. Play around with the [live demo](https://resto-app-server.herokuapp.com/)
 
+> **Note**: These steps can be used as well in your local enviorment, and you will have the advantage to give ADMIN privilage. Just go to your [prisma app account](https://app.prisma.io/) and add ADMIN in your user role.
+
 Copy and paste
+
+Create a new user (be aware is not going to have ADMIN privilage), copy
+
+```graphql
+mutation {
+  signup(email:"test@mail.com", password:"test", name:"test") {
+    token
+  }
+}
+```
+
+or login with an existing user that you had created before
 
 ```graphql
 mutation {
@@ -92,16 +106,6 @@ Copy this in the bottom tap *HTTP HEADERS* and replace *_TOKEN_VALUE_* with the 
 ```javascript
 {
   "Authorization" : "_TOKEN_VALUE_"
-}
-```
-
-If you want to create a new user (be aware is not going to have ADMIN privilage), copy
-
-```graphql
-mutation {
-  signup(email:"any@mail.com", password:"your_choice", name:"any_name") {
-    token
-  }
 }
 ```
 
