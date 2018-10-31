@@ -101,12 +101,10 @@ mutation {
 }
 ```
 
-Copy this in the bottom tap *HTTP HEADERS* and replace *_TOKEN_VALUE_* with the token value
+Copy this in the bottom tap *HTTP HEADERS* and replace *_TOKEN_VALUE_* with the token value that it's retrieved on the right side
 
 ```javascript
 {
   "Authorization" : "_TOKEN_VALUE_"
 }
 ```
-
-And then do *HTTP HEADERS* step from above
